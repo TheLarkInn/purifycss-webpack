@@ -49,11 +49,15 @@ module.exports = function PurifyPlugin(options) {
               ]);
 
               assetsToPurify.forEach(({ name, asset }) => {
-                const filesToSearch = parse.entries(entryPaths, chunkName).concat(
-                  search.files(
-                    modules, options.moduleExtensions || [], file => file.resource
-                  )
-                );
+                const filesToSearch = parse.entries(
+                  (
+                    options.pathsByChunkIterator(name, entryPaths) || entryPaths),
+                    chunkName
+                  ).concat(
+                    search.files(
+                      modules, options.moduleExtensions || [], file => file.resource
+                    )
+                  );
 
                 output(() => [
                   'Files to search for used rules:',
