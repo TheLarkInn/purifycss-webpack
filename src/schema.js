@@ -3,6 +3,8 @@ const schema = ({ entry } = {}) => ({
   additionalProperties: false,
   type: 'object',
   properties: {
+    pathsByChunkIterator: {
+    },
     styleExtensions: {
       type: 'array',
       items: {
