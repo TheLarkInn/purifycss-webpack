@@ -37,7 +37,6 @@ module.exports = function PurifyPlugin(options) {
           // Go through chunks and purify as configured
           compilation.chunks.forEach(
             ({ name: chunkName, files, modules }) => {
-
               const assetsToPurify = search.assets(
                 compilation.assets, options.styleExtensions
               ).filter(
@@ -50,11 +49,15 @@ module.exports = function PurifyPlugin(options) {
               ]);
 
               assetsToPurify.forEach(({ name, asset }) => {
-                const filesToSearch = parse.entries((options.pathsByChunkIterator(name, entryPaths) || entryPaths), chunkName).concat(
-                  search.files(
-                    modules, options.moduleExtensions || [], file => file.resource
-                  )
-                );
+                const filesToSearch = parse.entries(
+                  (
+                    options.pathsByChunkIterator(name, entryPaths) || entryPaths),
+                    chunkName
+                  ).concat(
+                    search.files(
+                      modules, options.moduleExtensions || [], file => file.resource
+                    )
+                  );
 
                 output(() => [
                   'Files to search for used rules:',
